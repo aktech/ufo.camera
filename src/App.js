@@ -21,6 +21,7 @@ function UFOImage() {
     const [index, setIndex] = useState(true)
     const [generate, setGenerate] = useState(false)
     const [imgData, setImgData] = useState(null)
+    const [imgLoading, setImgLoading] = useState(false)
 
     const onClickShowUfo = async function() {
         setGenerate(true)
@@ -39,6 +40,7 @@ function UFOImage() {
             } else if (!generate) {
                 return
             }
+            setImgLoading(true)
             const { data, error } = await supabase
                 .rpc('random_ufo', {index_id: index_id})
             return data.length !== 0 ? data[0] : {}
@@ -46,6 +48,7 @@ function UFOImage() {
 
         fetchMyAPI().then((data) => {
             console.log(data)
+            setImgLoading(false)
             if (data && Object.keys(data).length !== 0) {
                 setImgData(data)
                 setImgDivClass("")
@@ -67,11 +70,20 @@ function UFOImage() {
     }, [index, generate]);
 
 
+
+    const imageLoader = function () {
+        return (
+            <div className="m-5 flex items-center justify-center ">
+                <div className="w-40 h-40 border-t-4 border-b-4 border-green-900 rounded-full animate-spin"></div>
+            </div>
+        )
+    }
+
     const imageBox = function () {
         return (
             <div className={"p-2 image-container " + imgDivClass}>
                 <figure>
-                    <img className="img object-cover object-scale-down" src={imgSrc} alt="ufo"/>
+                    <img className="img mx-auto object-cover object-scale-down" src={imgSrc} alt="ufo"/>
                 </figure>
             </div>
         )
@@ -123,6 +135,14 @@ function UFOImage() {
                 </h2>
             </>
             )
+    }
+
+    const headerImage = function () {
+        return (
+            <div className="object-center">
+            <img className="p-4 mx-auto max-h-48 max-w-48" src={require("./assets/ufo-header.svg").default} alt="ufo"/>
+            </div>
+        )
     }
 
     const footer = function () {
@@ -178,10 +198,12 @@ function UFOImage() {
 
     return (
       <div className="main">
-          <div className="max-w-lg mx-auto text-center xl:max-w-5xl">
+          <div className=" mx-auto text-center xl:max-w-5xl">
               {header()}
+              {headerImage()}
               {ctaButtons()}
               {imgSrc ? infoBox() : ""}
+              {imgLoading ? imageLoader(): ""}
               {imgData ? imageBox() : ''}
               {imgData ? textBox() : ''}
               {footer()}
