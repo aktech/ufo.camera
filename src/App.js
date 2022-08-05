@@ -131,7 +131,7 @@ function UFOImage() {
             <>
                 <h1 className="font-passion-one text-7xl text-black sm:text-5xl xl:text-8xl my-5">ufo.camera</h1>
                 <h2 className="font-merriweather-sans sm:text-1xl xl:text-2xl max-w-lg mx-auto text-gray-400">
-                    Random images of UFO from <a href="https://nuforc.org/" className="hover:underline">NUFORC</a>
+                    Random images of UFO from <a href="https://nuforc.org/" className="hover:underline text-gray-500">NUFORC</a>
                 </h2>
             </>
             )
@@ -150,8 +150,8 @@ function UFOImage() {
             <footer className="p-4 mt-5">
                 <hr className="mb-4 sm:mx-auto " />
                 <span className="font-merriweather-sans text-lg sm:text-center">
-                   <p className="text-gray-500"> Made by <a href="https://twitter.com/iaktech" className="hover:underline text-black">Amit</a>
-                   • Source on <a href="https://github.com/aktech/ufo.camera" className="hover:underline text-black">GitHub</a>
+                   <p className="text-gray-500"> Made by <a href="https://twitter.com/iaktech" className="hover:underline text-gray-700">Amit</a>
+                   • Source on <a href="https://github.com/aktech/ufo.camera" className="hover:underline text-gray-700">GitHub</a>
                    </p>
 
                 </span>
