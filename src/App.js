@@ -56,7 +56,7 @@ function UFOImage() {
                 setCity(data.city)
                 setCountry(data.country)
                 setShape(data.shape)
-                setImgSrc(data.images)
+                setImgSrc(data.images.split(",")[0])
                 setText(data.text)
                 window.location.hash = `#${data.index}`
                 if (data.date_time) {
