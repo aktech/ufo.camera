@@ -1,5 +1,5 @@
 import './App.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 
 
@@ -17,32 +17,56 @@ function UFOImage() {
     const [city, setCity] = useState("")
     const [country, setCountry] = useState("")
     const [shape, setShape] = useState("")
-    const [index, setIndex] = useState(null)
+    const [index, setIndex] = useState(true)
+    const [generate, setGenerate] = useState(false)
+    const [imgData, setImgData] = useState(null)
 
-    const getImage = async function () {
-        const { data, error } = await supabase
-            .rpc('random_ufo', {index_id: index})
-        console.log(data)
-        displayImage(data[0])
-    };
+    const onClickShowUfo = async function() {
+        setGenerate(true)
+        setIndex(false)
+    }
 
-    const displayImage = function (randomImage) {
-        setImgSrc(randomImage.images)
-        console.log(randomImage.date_time)
-        if (randomImage.date_time) {
-            const event = new Date(randomImage.date_time)
-            setDatetime(event.toString())
-            console.log(event)
+    useEffect(() => {
+        async function fetchMyAPI() {
+            let index_id = null
+            if (index) {
+                if (window.location.hash) {
+                    index_id = window.location.hash.substring(1)
+                } else {
+                    return
+                }
+            } else if (!generate) {
+                return
+            }
+            const { data, error } = await supabase
+                .rpc('random_ufo', {index_id: index_id})
+            return data.length !== 0 ? data[0] : {}
         }
-        setCity(randomImage.city)
-        setCountry(randomImage.country)
-        setShape(randomImage.shape)
-        setImgDivClass("")
-    };
+
+        fetchMyAPI().then((data) => {
+            console.log(data)
+            if (data && Object.keys(data).length !== 0) {
+                setImgData(data)
+                setImgDivClass("")
+                setGenerate(false)
+                setCity(data.city)
+                setCountry(data.country)
+                setShape(data.shape)
+                setImgSrc(data.images)
+                window.location.hash = `#${data.index}`
+                if (data.date_time) {
+                    const event = new Date(data.date_time)
+                    setDatetime(event.toString())
+                    console.log(event)
+                }
+
+            }
+        })
+    }, [index, generate]);
 
     const showMeUfoButton = function () {
         return (
-            <a href="#_" className="relative inline-block text-lg group my-8" onClick={getImage}>
+            <a href="#_" className="relative inline-block text-lg group my-8" onClick={onClickShowUfo}>
             <span
                 className="relative z-10 block px-5 py-3 overflow-hidden font-medium leading-tight text-gray-800 transition-colors duration-300 ease-out border-2 border-gray-900 rounded-lg group-hover:text-white">
             <span className="absolute inset-0 w-full h-full px-5 py-3 rounded-lg bg-gray-50"></span>
@@ -112,7 +136,7 @@ function UFOImage() {
               {showMeUfoButton()}
               {imgSrc ? infoBox() : ""}
               {/*{reportLinkBox()}*/}
-              {imageBox()}
+              {imgData ? imageBox() : ''}
           </div>
       </div>
   )
