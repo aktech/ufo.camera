@@ -84,7 +84,7 @@ function UFOImage() {
 
     const imageBox = function () {
         return (
-            <div className={"image-container " + imgDivClass}>
+            <div className={"p-2 image-container " + imgDivClass}>
                 <figure>
                     <img className="img object-cover object-scale-down" src={imgSrc} alt="ufo"/>
                 </figure>
