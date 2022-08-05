@@ -1,6 +1,5 @@
 import './App.css';
 import {useState} from "react";
-import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -18,13 +17,8 @@ function UFOImage() {
     const [reportLink, setReportLink] = useState("");
 
     const getImage = async function () {
-        let randUuid = uuidv4();
         const { data, error } = await supabase
-            .from('nuforc')
-            .select()
-            .or(`index.lt.${randUuid},index.gt.${randUuid}`)
-            .limit(1)
-
+            .rpc('random_ufo')
         console.log(data)
         displayImage(data[0])
     };
