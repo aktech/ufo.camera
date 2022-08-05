@@ -13,8 +13,6 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 function UFOImage() {
     const [imgSrc, setImgSrc] = useState("");
     const [imgDivClass, setImgDivClass] = useState("invisible");
-    const [text, setText] = useState("");
-    const [reportLink, setReportLink] = useState("");
     const [datetime, setDatetime] = useState("")
     const [city, setCity] = useState("")
     const [country, setCountry] = useState("")
@@ -29,8 +27,6 @@ function UFOImage() {
 
     const displayImage = function (randomImage) {
         setImgSrc(randomImage.images)
-        setText(randomImage.text)
-        setReportLink(randomImage.report_link)
         console.log(randomImage.date_time)
         if (randomImage.date_time) {
             const event = new Date(randomImage.date_time)
@@ -68,16 +64,6 @@ function UFOImage() {
                     <img className="img object-cover object-scale-down" src={imgSrc} alt="ufo"/>
                 </figure>
             </div>
-        )
-    }
-
-    const reportLinkBox = function () {
-        return (
-            <p className="font-merriweather-sans sm:text-1xl xl:text-1xl max-w-lg mx-auto text-gray-500 my-8">
-                {
-                    reportLink ? `More Information: ${reportLink}`: ""
-                }
-            </p>
         )
     }
 
