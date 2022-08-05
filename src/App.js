@@ -94,8 +94,7 @@ function UFOImage() {
 
     const infoBox = function () {
         return (
-            <div className="grid m-2 gap-8 mt-5 text-center sm:mt-16 sm:grid-cols-2 sm:gap-x-12 gap-y-12 md:grid-cols-3 md:gap-2 xl:mt-4">
-
+            <div className="grid m-2 mt-5 text-center sm:mt-16 sm:grid-cols-2 sm:gap-x-12 gap-y-4 md:grid-cols-3 md:gap-2 xl:mt-4">
                 <div
                    className="p-4 max-w-sm bg-white rounded-lg border shadow-md dark:bg-gray-800 dark:border-gray-700 ">
                     <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Date Time</h5>
