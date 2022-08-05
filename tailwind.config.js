@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'passion-one': ["Passion One", "cursive"],
+        'passion-one': ['Passion One', 'cursive'],
+        'merriweather-sans': ['Merriweather Sans', 'sans-serif'],
       },
     },
   },
