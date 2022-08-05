@@ -15,6 +15,10 @@ function UFOImage() {
     const [imgDivClass, setImgDivClass] = useState("invisible");
     const [text, setText] = useState("");
     const [reportLink, setReportLink] = useState("");
+    const [datetime, setDatetime] = useState("")
+    const [city, setCity] = useState("")
+    const [country, setCountry] = useState("")
+    const [shape, setShape] = useState("")
 
     const getImage = async function () {
         const { data, error } = await supabase
@@ -27,6 +31,15 @@ function UFOImage() {
         setImgSrc(randomImage.images)
         setText(randomImage.text)
         setReportLink(randomImage.report_link)
+        console.log(randomImage.date_time)
+        if (randomImage.date_time) {
+            const event = new Date(randomImage.date_time)
+            setDatetime(event.toString())
+            console.log(event)
+        }
+        setCity(randomImage.city)
+        setCountry(randomImage.country)
+        setShape(randomImage.shape)
         setImgDivClass("")
     };
 
@@ -52,7 +65,7 @@ function UFOImage() {
         return (
             <div className={"image-container " + imgDivClass}>
                 <figure>
-                    <img className="img" src={imgSrc} alt="ufo"/>
+                    <img className="img object-cover object-scale-down" src={imgSrc} alt="ufo"/>
                 </figure>
             </div>
         )
@@ -68,10 +81,36 @@ function UFOImage() {
         )
     }
 
+    const infoBox = function () {
+        return (
+            <div className="grid m-2 gap-8 mt-5 text-center sm:mt-16 sm:grid-cols-2 sm:gap-x-12 gap-y-12 md:grid-cols-3 md:gap-2 xl:mt-4">
+
+                <div
+                   className="p-4 max-w-sm bg-white rounded-lg border shadow-md dark:bg-gray-800 dark:border-gray-700 ">
+                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Date Time</h5>
+                    <p className="font-normal text-gray-700 dark:text-gray-400">{datetime}</p>
+                </div>
+
+                <div
+                    className="p-4 max-w-sm bg-white rounded-lg border shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Location</h5>
+                    <p className="font-normal text-gray-700 dark:text-gray-400">{city} {country}</p>
+                </div>
+
+                <div
+                    className="p-4 max-w-sm bg-white rounded-lg border shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Shape</h5>
+                    <p className="font-normal text-gray-700 dark:text-gray-400">{shape}</p>
+                </div>
+
+            </div>
+        )
+    }
+
     const header = function () {
         return (
             <>
-                <h1 className="font-passion-one text-black sm:text-4xl xl:text-8xl my-8">ufo.camera</h1>
+                <h1 className="font-passion-one text-6xl text-black sm:text-5xl xl:text-8xl my-5">ufo.camera</h1>
                 <h2 className="font-passion-one sm:text-1xl xl:text-2xl max-w-lg mx-auto text-gray-400">
                     (Random images of UFO from NUFORC)
                 </h2>
@@ -81,10 +120,11 @@ function UFOImage() {
 
     return (
       <div className="main">
-          <div className="max-w-lg mx-auto text-center xl:max-w-2xl">
+          <div className="max-w-lg mx-auto text-center xl:max-w-5xl">
               {header()}
               {showMeUfoButton()}
-              {reportLinkBox()}
+              {imgSrc ? infoBox() : ""}
+              {/*{reportLinkBox()}*/}
               {imageBox()}
           </div>
       </div>
