@@ -17,10 +17,11 @@ function UFOImage() {
     const [city, setCity] = useState("")
     const [country, setCountry] = useState("")
     const [shape, setShape] = useState("")
+    const [index, setIndex] = useState(null)
 
     const getImage = async function () {
         const { data, error } = await supabase
-            .rpc('random_ufo')
+            .rpc('random_ufo', {index_id: index})
         console.log(data)
         displayImage(data[0])
     };
