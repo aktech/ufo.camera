@@ -131,7 +131,7 @@ function UFOImage() {
                 <hr className="mb-4 sm:mx-auto " />
                 <span className="font-merriweather-sans text-lg sm:text-center">
                    <p className="text-gray-500"> Made by <a href="https://twitter.com/iaktech" className="hover:underline text-black">Amit</a>
-                   • Source on <a href="https://github.com/iaktech" className="hover:underline text-black">GitHub</a>
+                   • Source on <a href="https://github.com/aktech/ufo.camera" className="hover:underline text-black">GitHub</a>
                    </p>
 
                 </span>
