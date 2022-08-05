@@ -1,28 +1,38 @@
 import './App.css';
 import {useState} from "react";
+import { v4 as uuidv4 } from 'uuid';
 
+
+
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 function UFOImage() {
     const [imgSrc, setImgSrc] = useState("");
     const [imgDivClass, setImgDivClass] = useState("invisible");
+    const [text, setText] = useState("");
+    const [reportLink, setReportLink] = useState("");
 
     const getImage = async function () {
-        const response = await fetch("https://picsum.photos/v2/list?limit=100");
-        const images = await response.json();
-        selectRandomImage(images);
-    };
+        let randUuid = uuidv4();
+        const { data, error } = await supabase
+            .from('nuforc')
+            .select()
+            .or(`index.lt.${randUuid},index.gt.${randUuid}`)
+            .limit(1)
 
-    const selectRandomImage = function (images) {
-        const randomIndex = Math.floor(Math.random() * images.length);
-        const randomImage = images[randomIndex];
-        console.log(randomImage);
-        displayImage(randomImage);
+        console.log(data)
+        displayImage(data[0])
     };
 
     const displayImage = function (randomImage) {
-        let imageAddress = randomImage.download_url;
-        console.log(imageAddress);
-        setImgSrc(imageAddress)
+        setImgSrc(randomImage.images)
+        setText(randomImage.text)
+        setReportLink(randomImage.report_link)
         setImgDivClass("")
     };
 
@@ -48,12 +58,16 @@ function UFOImage() {
                       data-rounded="rounded-lg">
               </span>
               </a>
+              <p className="font-merriweather-sans sm:text-1xl xl:text-1xl max-w-lg mx-auto text-gray-500 my-8">
+                   {
+                  reportLink ? `More Information: ${reportLink}`: ""
+              }
+              </p>
               <div className={"image-container " + imgDivClass}>
                   <figure>
                       <img className="img" src={imgSrc} alt="ufo"/>
                   </figure>
               </div>
-
           </div>
       </div>
   )
