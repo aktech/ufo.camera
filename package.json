@@ -1,7 +1,7 @@
 {
   "name": "ufo.camera",
   "version": "0.1.0",
-  "homepage": "https://aktech.github.io/ufo.camera",
+  "homepage": "https://aktech.github.io/",
   "private": true,
   "dependencies": {
     "@supabase/supabase-js": "^1.35.5",
