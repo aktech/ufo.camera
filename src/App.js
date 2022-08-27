@@ -41,9 +41,12 @@ function UFOImage() {
                 return
             }
             setImgLoading(true)
-            const { data, error } = await supabase  // eslint-disable-line @typescript-eslint/no-unused-vars
+            /* eslint-disable no-unused-vars */
+            const { data, _ } = await supabase
                 .rpc('random_ufo', {index_id: index_id})
             return data.length !== 0 ? data[0] : {}
+            /* eslint-disable no-unused-vars */
+
         }
 
         fetchMyAPI().then((data) => {
