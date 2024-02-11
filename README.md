@@ -3,7 +3,6 @@
 [![license](https://img.shields.io/github/license/aktech/ufo.camera?style=for-the-badge)](LICENSE)
 [![PRs welcome](https://img.shields.io/badge/PRs-Welcome-green?style=for-the-badge)](https://github.com/aktech/ufo.camera/compare)
 
-
 <img src="src/assets/ufo-header.svg" alt="drawing" width="200"/>
 
 Random images of UFO from the databases of National UFO Reporting Center. https://nuforc.org/
